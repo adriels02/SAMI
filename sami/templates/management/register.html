@@ -1,0 +1,111 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+
+    <title>{% block page_title%}Registrar{% endblock %}</title>
+
+    {# {% include 'styles.html' %} #}
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %} ">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css' %}">
+
+    <style>
+        html, body {
+            height: 100%;
+           margin-top: -15px;          
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+        .content-wrapper {
+            flex: 1;
+            width: 100%;
+            box-sizing: border-box;
+            padding: 20px;
+            margin-bottom: 60px; /* Espaçamento inferior para o footer */
+        }
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: -30;
+            width: 120%;
+            text-align: left;
+            background-color: #f8f9fa;
+            padding: 10px 0;
+        }
+    </style>
+    {% block extra_head %}
+
+    {% endblock %}
+</head>
+<body class="hold-transition register-page">
+    <div class="register-box">       
+        <div class="card">
+            <div class="card-body register-card-body">
+                <p class="login-box-msg">Crie sua conta</p>
+                <form method="post" action="{% url 'management:register' %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="id_fullname">Nome completo:</label>
+                        <input required type="text" id="id_fullname" name="fullname" class="form-control" placeholder="Nome completo">
+                        {% if form.fullname.errors %}
+                            <div class="invalid-feedback d-block">
+                                {{ form.fullname.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_email">Email:</label>
+                        <input required type="email" id="id_email" name="email" class="form-control" placeholder="Email">
+                        {% if form.email.errors %}
+                            <div class="invalid-feedback d-block">
+                                {{ form.email.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_password">Senha:</label>
+                        <input required type="password" id="id_password" name="password" class="form-control" placeholder="Senha">
+                        {% if form.password.errors %}
+                            <div class="invalid-feedback d-block">
+                                {{ form.password.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_password_confirm">Confirme sua senha:</label>
+                        <input required type="password" id="id_password_confirm" name="password_confirm" class="form-control" placeholder="Confirme sua senha">
+                        {% if form.password_confirm.errors %}
+                            <div class="invalid-feedback d-block">
+                                {{ form.password_confirm.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <input type="submit" value="Cadastrar" class="btn btn-primary btn-block">
+                    <br>
+                    <div><a href="/management/login">Já possui uma conta? - Clique aqui</a></div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer class="main-footer">
+        <div class="float-right d-none d-sm-block"></div>
+        <strong>Copyright &copy; {% now "Y" %}.</strong> SAMI - Todos os direitos reservados
+    </footer>
+
+    <script src="{% static 'adminlte/plugins/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'adminlte/js/adminlte.min.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block page_title %}Enviar Arquivos{% endblock %}
+
+{% block content_inner %}
+<div class="container">
+    <h1>Enviar Arquivos</h1>
+    {% if messages %}
+    <div>
+        {% for message in messages %}
+        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% else %}alert-info{% endif %}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="id_titulo">Título</label>
+            <input type="text" name="titulo" id="id_titulo" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="id_descricao">Descrição</label>
+            <textarea name="descricao" id="id_descricao" class="form-control" required></textarea>
+        </div>
+        <div class="form-group">
+            <label for="id_arquivo">Arquivo</label>
+            <input type="file" name="arquivo" id="id_arquivo" class="form-control-file" required>
+        </div>
+        <div class="text-right">
+            <button type="submit" class="btn btn-primary">Enviar arquivo</button>
+        </div>
+    </form>
+    <a href="{% url 'maintenance:home' %}" class="btn btn-secondary">Voltar</a>
+</div>
+
+{% endblock %}
+
+

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block page_title %}Fazer Pergunta{% endblock %}
+
+{% block content_inner %}
+<div class="container">
+    <h1>Pesquisar Respostas</h1>
+    <form method="post" action="{% url 'maintenance:q_and_a' %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="documents">Selecione o Arquivo:</label>
+            <select name="document_id" id="document_id" required>
+                {% for document in documents %}
+                    <option value="{{ document.id }}">{{ document.titulo }}</option>
+                
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="query">Resposta:</label>
+            <textarea class="form-control" name="comments" rows="4" cols="100" readonly>
+                {{ responses }}
+            </textarea>
+        </div>
+        <div class="form-group">
+            <label for="query">Fazer Pergunta:</label>
+            <input type="text" class="form-control" id="query" name="query" required>
+        </div>
+        <div class="text-right">
+            <button type="submit" class="btn btn-primary">Pesquisar</button>
+        </div>
+    </form>
+    <div>
+        <a href="{% url 'maintenance:home' %}" class="btn btn-secondary">Voltar</a>
+    </div>
+</div>
+
+{% endblock %}

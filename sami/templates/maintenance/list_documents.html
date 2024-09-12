@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block page_title %}Lista de Documentos{% endblock %}
+
+{% block content_inner %}
+<div class="container">
+    <h1>Lista de Documentos</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Título</th>
+                <th>Descrição</th>
+                <th>Data de Envio</th>
+                <th>Arquivo</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for document in documents %}
+            <tr>
+                <td>{{ document.id }}</td>
+                <td>{{ document.titulo }}</td>
+                <td>{{ document.descricao }}</td>
+                <td>{{ document.data_de_envio }}</td>
+                <td><a href="{{ document.arquivo.url }}" target="_blank">{{ document.arquivo.name }}</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{% url 'maintenance:home' %}" class="btn btn-primary">Voltar</a>
+</div>
+{% endblock %}
+
+
+
