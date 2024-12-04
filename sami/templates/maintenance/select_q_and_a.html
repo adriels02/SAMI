@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block page_title %}Fazer Pergunta{% endblock %}
+
+{% block content_inner %}
+
+<style>
+.loading span {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #0069d9;
+    display: inline-block;
+    margin: 8px;
+    pointer-events: none; 
+    animation: bounce .6s cubic-bezier(0.6, 0.1, 1, 0.4) infinite alternate;
+}
+
+.loading span:nth-child(1) {
+    animation-delay: .1s;
+}
+
+.loading span:nth-child(2) {
+    animation-delay: .2s;
+}
+
+.loading span:nth-child(3) {
+    animation-delay: .3s;
+}
+
+@keyframes bounce {
+    to {
+        transform: translateY(15px);
+    }
+}
+</style>
+
+<div class="container">
+    <h1>Pesquisar Respostas</h1>
+    <form  id="consult-form" method="post" action="{% url 'maintenance:select_q_and_a' %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="documents">Selecione o Arquivo:</label>
+            <select name="document_id" id="document_id" required>
+                {% for document in documents %}
+                    <option value="{{ document.id }}">{{ document.titulo }}</option>
+                
+                {% endfor %}
+            </select>
+        </div>
+        <div style="position: relative;">
+        <div class="form-group">
+            <label for="query">Resposta:</label>
+            <textarea class="form-control" name="comments" rows="4" cols="100" readonly>
+                {{ responses }}
+            </textarea>
+            <div class="loading" style="display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; align-items: center; justify-content: center; background: rgba(255, 255, 255, 0.8);">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        </div>
+        <div class="form-group">
+            <label for="query">Fazer Pergunta:</label>
+            <input type="text" class="form-control" id="query" name="query" required>
+        </div>
+        <div class="text-right">
+            <button type="submit" class="btn btn-primary">Pesquisar</button>
+        </div>
+    </form>
+    <div>
+        <a href="{% url 'maintenance:home' %}" class="btn btn-secondary">Voltar</a>
+    </div>
+</div>
+
+<script>
+document.getElementById("consult-form").addEventListener("submit", function() {
+   
+    document.getElementsByClassName("loading")[0].style.display = "flex";
+});
+</script>
+
+{% endblock %}

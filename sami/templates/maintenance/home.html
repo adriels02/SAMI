@@ -15,6 +15,10 @@
             background-color: #f8f9fa;
             padding: 10px 0;
         }
+
+        
+
+        
 </style>
     <div class="card card-primary card-tabs">
         <div class="card-header">
@@ -25,8 +29,9 @@
             <div id="table" class="dataTables_wrapper dt-bootstrap4">
                 <div class="row">
                     <div class="col-sm-6">
-                        <ul>
-                            <div><a href="{% url 'maintenance:q_and_a' %}">Fazer Pergunta</div>
+                        <ul class="feature-list">
+                            <div><a href="{% url 'maintenance:q_and_a' %}">Consulta Geral</div>
+                            <div><a href="{% url 'maintenance:select_q_and_a' %}">Consulta com seleção de manual</div>
                             <div><a href="{% url 'maintenance:upload_document' %}">Enviar Arquivos</a></div>
                             <div><a href="{% url 'maintenance:list_documents' %}">Listar Arquivos</a></div>
                         </ul>

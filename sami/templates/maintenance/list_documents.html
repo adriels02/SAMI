@@ -4,6 +4,16 @@
 
 {% block content_inner %}
 <div class="container">
+    {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
     <h1>Lista de Documentos</h1>
     <table class="table table-striped">
         <thead>
@@ -13,6 +23,7 @@
                 <th>Descrição</th>
                 <th>Data de Envio</th>
                 <th>Arquivo</th>
+                <th>Ações</th>  
             </tr>
         </thead>
         <tbody>
@@ -23,6 +34,13 @@
                 <td>{{ document.descricao }}</td>
                 <td>{{ document.data_de_envio }}</td>
                 <td><a href="{{ document.arquivo.url }}" target="_blank">{{ document.arquivo.name }}</a></td>
+                <td>
+                    <a href="{% url 'maintenance:delete_document' document.id %}" 
+                       onclick="return confirm('Tem certeza que deseja deletar este arquivo?');"
+                       class="btn btn-danger">
+                        Deletar
+                    </a>
+                </td>
             </tr>
             {% endfor %}
         </tbody>
@@ -30,6 +48,8 @@
     <a href="{% url 'maintenance:home' %}" class="btn btn-primary">Voltar</a>
 </div>
 {% endblock %}
+
+
 
 
 
